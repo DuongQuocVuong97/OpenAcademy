@@ -3,8 +3,7 @@
     'name': "openacademy",
 
     'summary': """ Manage Trainings """
-       """ Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+       """ Training Module  """,
 
     'description': """
        Open Academy module for managing trainings:
@@ -30,7 +29,6 @@
         # 'security/ir.model.access.csv',
         'views/openacademy.xml',
         'views/templates.xml',
-        'views/partner.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

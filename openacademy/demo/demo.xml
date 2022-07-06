@@ -38,5 +38,18 @@
                 <field name = "name">Course 3</field>
                 <field name = "descriptions"> Course 3 descriptions</field>
         </record>
+
+        <record model = "openacademy.session" id = "session1">
+                <field name = "name">Session 1</field>
+                <field name = "descriptions"> Session 1 descriptions</field>
+        </record>
+        <record model = "openacademy.session" id = "session2">
+                <field name = "name">Session 2</field>
+                <field name = "descriptions"> Session 2 descriptions</field>
+        </record>
+        <record model = "openacademy.session" id = "session3">
+                <field name = "name">Session 3</field>
+                <field name = "descriptions"> Session 3 descriptions</field>
+        </record>
     </data>
 </odoo>
