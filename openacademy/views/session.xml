@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+<!--
+        <template id="listing">
+          <ul>
+            <li t-foreach="objects" t-as="object">
+              <a t-attf-href="#{ root }/objects/#{ object.id }">
+                <t t-esc="object.display_name"/>
+              </a>
+            </li>
+          </ul>
+        </template>
+        <template id="object">
+          <h1><t t-esc="object.display_name"/></h1>
+          <dl>
+            <t t-foreach="object._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="object[field]"/></dd>
+            </t>
+          </dl>
+        </template>
+-->
+        <!-- session form view   -->
+      <record model="ir.ui.view" id="session_tree_view">
+          <field name="name">session.tree</field>
+          <field name="model">session</field>
+          <field name="arch" type="xml">
+              <tree string="Session Tree">
+                  <field name="name"/>
+                  <field name="course_id"/>
+                  <field name="taken_seats" widget = "progressbar"/>
+              </tree>
+          </field>
+      </record>
+
+      <record model="ir.ui.view" id="session_form_view">
+          <field name="name">session.form</field>
+          <field name="model">session</field>
+          <field name="arch" type="xml">
+              <form string="Session Form">
+                  <sheet>
+                      <group>
+                          <group string="General">
+                            <field name="course_id"/>
+                            <field name="name"/>
+                          </group>
+                          <group string="Schedule">
+                            <field name="start_date"/>
+                            <field name="duration"/>
+                            <field name="seats"/>
+                            <field name="taken_seats" widget = "progressbar"/>
+                         </group>
+                      </group>
+                      <label for="attendee_ids"/>
+                      <field name="attendee_ids"/>
+                  </sheet>
+              </form>
+          </field>
+      </record>
+      <record model="ir.actions.act_window" id="session_list_action">
+          <field name="name">Sessions</field>
+          <field name="res_model">session</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+      <menuitem id="session_menu" name="Sessions"
+                parent="openacademy_menu"
+                action="session_list_action"/>
+    </data>
+</odoo>
