@@ -3,7 +3,7 @@ class Attendee (models.Model):
     _name = 'attendee'
 
     name = fields.Char(string='Name Attenders', required=True)
-    session_ids = fields.Many2many('session', string='Session')
+    session_ids = fields.Many2many('session', string='Attended Sessions')
 
 class AttendeeInfo(models.Model):
     _name = 'attendee'

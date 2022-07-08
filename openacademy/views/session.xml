@@ -29,6 +29,7 @@
                   <field name="name"/>
                   <field name="course_id"/>
                   <field name="taken_seats" widget = "progressbar"/>
+                  <field name="active"/>
               </tree>
           </field>
       </record>
@@ -43,6 +44,8 @@
                           <group string="General">
                             <field name="course_id"/>
                             <field name="name"/>
+                            <field name="instructor_id"/>
+                            <field name="active"/>
                           </group>
                           <group string="Schedule">
                             <field name="start_date"/>
@@ -60,6 +63,7 @@
       <record model="ir.actions.act_window" id="session_list_action">
           <field name="name">Sessions</field>
           <field name="res_model">session</field>
+          <field name="context">{'active_test': False}</field>
           <field name="view_mode">tree,form</field>
       </record>
 

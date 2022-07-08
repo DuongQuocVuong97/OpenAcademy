@@ -63,6 +63,7 @@
             <field name="arch" type="xml">
                 <tree string="Course Tree">
                     <field name="name"/>
+                    <field name="name_seq"/>
                     <field name="description"/>
                     <field name="responsible_id"/>
                 </tree>
@@ -86,6 +87,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <strong><field name="name"/></strong>
+                                    <h3><field name="name_seq"/></h3>
                                 </div>
                                 <div class="col-6">
                                     <span class="float-right"><field name="description"/></span>
@@ -104,17 +106,21 @@
             <field name="name">course.form</field>
             <field name="model">course</field>
             <field name="arch" type="xml">
-                <form string="Course Form">
+                <form string="Course Form" delete="false">
                     <sheet>
                         <group>
+                            <div class="col-6" >
+                            <group>
+                                <field name="name"/>
+                                <field name="description" />
+                                <field name="responsible_id"/>
+                            </group>
+                            </div>
+                            <div class="col-6">
                             <group>
                                 <field name = "course_img" class = "oe_avatar" widget = "image" />
                             </group>
-                            <group>
-                                <field name="name"/>
-                                <field name="description"/>
-                                <field name="responsible_id"/>
-                            </group>
+                            </div>
                         </group>
                     </sheet>
                 </form>
@@ -130,6 +136,17 @@
                 </p>
             </field>
         </record>
+      <record id="sequence_id" model="ir.sequence">
+          <field name="name">Course ID</field>
+          <field name="code">course.sequence</field>
+          <field name="active">TRUE</field>
+          <field name="prefix">CS%(y)s</field>
+          <field name="padding">3</field>
+          <field name="number_next">1</field>
+          <field name="number_increment">1</field>
+          <field name="company_id" eval="False"/>
+      </record>
+
         <!-- top level menu: no parent -->
         <menuitem id="main_openacademy_menu" name="Course"/>
         <!-- menu categories -->

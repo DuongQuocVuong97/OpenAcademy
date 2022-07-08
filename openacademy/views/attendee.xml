@@ -48,14 +48,30 @@
                   parent="configuration_menu"
                   action="contact_list_action"/>
 
-        <record model="ir.actions.act_window" id="contact_cat_list_action">
-            <field name="name">Contact Tags</field>
-            <field name="res_model">attendee</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <menuitem id="contact_cat_menu" name="Contact Tags"
-                  parent="configuration_menu"
-                  action="contact_cat_list_action"/>
+         <record model="ir.ui.view" id="attendee_form_view">
+          <field name="name">attendee.form</field>
+          <field name="model">attendee</field>
+          <field name="arch" type="xml">
+              <form string="attendee Form">
+                  <sheet>
+                          <group string="Attendee">
+                            <field name="session_ids"/>
+                            <field name="name"/>
+                          </group>
+                  </sheet>
+              </form>
+          </field>
+         </record>
+
+
+<!--        <record model="ir.actions.act_window" id="contact_cat_list_action">-->
+<!--            <field name="name">Contact Tags</field>-->
+<!--            <field name="res_model">attendee</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--        </record>-->
+<!--        <menuitem id="contact_cat_menu" name="Contact Tags"-->
+<!--                  parent="configuration_menu"-->
+<!--                  action="contact_cat_list_action"/>-->
 
         <record model="attendee" id="teacher 1">
             <field name="name">Teacher / Level 1</field>
