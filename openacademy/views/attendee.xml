@@ -25,14 +25,16 @@
             <field name="name">attendee.instructor</field>
             <field name="model">attendee</field>
             <field name="arch" type="xml">
-            <notebook position="inside">
-                    <page string="Sessions">
+                <form string="Attendee Form">
+<!--            <notebook position="inside">-->
+<!--                    <page string="Sessions">-->
                         <group>
                             <field name="instructor"/>
                             <field name="session_ids"/>
                         </group>
-                    </page>
-                </notebook>
+                </form>
+<!--                    </page>-->
+<!--                </notebook>-->
             </field>
         </record>
 
