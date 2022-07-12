@@ -2,10 +2,36 @@
 from odoo import http
 
 
-# class Openacademy(http.Controller):
-#     @http.route('/openacademy/openacademy/', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+class Openacademy(http.Controller):
+     @http.route('/api/session/', auth='public', website=True)
+     def create_session(self, **kw):
+     new_session: = http.request.env['session'].create({
+         'name': 'New Session',
+         'course_id': ,
+         'instructor_id': ,
+
+
+     })
+     return "A class has been created"
+
+
+
+
+     #     session_data = http.request.env['session'].search([])
+     #
+     #     return http.request.render('odoo_controller.index', {
+     #         'session': session_data,
+     #     })
+
+
+
+
+         # output = "<h1>Session Data</h1><ul>"
+         #
+         # for session in session_data:
+         #     output += '<li>' + session['name'] + '</li>'
+         # output += "</ul>"
+         # return output
 
 #     @http.route('/openacademy/openacademy/objects/', auth='public')
 #     def list(self, **kw):

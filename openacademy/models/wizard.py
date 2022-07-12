@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-class Wizard (models.Model):
+class Wizard (models.TransientModel):
     _name = 'wizard'
     _description = 'Wizard: Quick Registration of Attendees to Sessions'
 
@@ -9,6 +9,6 @@ class Wizard (models.Model):
     session_id = fields.Many2one('session', string='Session', required=True)
     attendee_ids = fields.Many2many('attendee', string='Attendees')
 
-    def subcribe(self):
-        self.session_id.attendee_ids |=  self.attendee_ids
+    def subscribe(self):
+        self.session_id.attendee_ids |= self.attendee_ids
         return {}
