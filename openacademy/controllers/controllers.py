@@ -1,37 +1,33 @@
 # -*- coding: utf-8 -*-
 from odoo import http
+import logging
+import json
+
+_logger = logging.getLogger(__name__)
 
 
-class Openacademy(http.Controller):
-     @http.route('/api/session/', auth='public', website=True)
-     def create_session(self, **kw):
-     new_session: = http.request.env['session'].create({
-         'name': 'New Session',
-         'course_id': ,
-         'instructor_id': ,
+class CourseController(http.Controller):
+    @http.route('/api', auth='public', website=False, csrf=False, type='json', methods=['get', 'POST'])
+    def create(self, **kw):
+        # add information in database to API postman
+        contacts = http.request.env['course'].search([])
+        contact_list = []
+        for contact in contacts:
+            contact_list.append({
+                'name_seq': contact.name_seq,
+                'name': contact.name,
+                'description': contact.description,
+            })
+        return contact_list
 
-
-     })
-     return "A class has been created"
-
-
-
-
-     #     session_data = http.request.env['session'].search([])
-     #
-     #     return http.request.render('odoo_controller.index', {
-     #         'session': session_data,
-     #     })
-
-
-
-
-         # output = "<h1>Session Data</h1><ul>"
-         #
-         # for session in session_data:
-         #     output += '<li>' + session['name'] + '</li>'
-         # output += "</ul>"
-         # return output
+    @http.route('/api/insert', auth='public', website=False, csrf=False, type='json', methods=['get', 'POST'])
+    def add(self, **kw):
+        insert = http.request.env['course'].sudo().create({
+            'name_seq': kw.get('name_seq'),
+            'name': kw.get('name'),
+            'description': kw.get('description')
+        }).id
+        return json.dumps(insert)
 
 #     @http.route('/openacademy/openacademy/objects/', auth='public')
 #     def list(self, **kw):
