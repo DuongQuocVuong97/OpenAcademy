@@ -2,9 +2,7 @@
 from odoo import http
 import logging
 import json
-
 _logger = logging.getLogger(__name__)
-
 
 class CourseController(http.Controller):
     @http.route('/api', auth='public', website=False, csrf=False, type='json', methods=['get', 'POST'])
@@ -29,15 +27,3 @@ class CourseController(http.Controller):
         }).id
         return json.dumps(insert)
 
-#     @http.route('/openacademy/openacademy/objects/', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('openacademy.listing', {
-#             'root': '/openacademy/openacademy',
-#             'objects': http.request.env['openacademy.openacademy'].search([]),
-#         })
-
-#     @http.route('/openacademy/openacademy/objects/<model("openacademy.openacademy"):obj>/', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('openacademy.object', {
-#             'object': obj
-#         })

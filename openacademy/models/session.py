@@ -21,6 +21,25 @@ class Session(models.Model):
     end_date = fields.Date(string="End Date", store=True,
                            compute='_get_end_date', inverse='_set_end_date')
 
+    state = fields.Selection([
+        ('in_progress', 'In_Progress'),
+        ('confirm', 'Confirm'),
+        ('done', 'Done'),
+        ('cancel', 'Cancelled'),
+    ], string='Status', readonly=True, default='in_progress')
+
+    def action_confirm(self):
+        for rec in self:
+            rec.state = 'confirm'
+
+    def action_done(self):
+        for rec in self:
+            rec.state = 'in_progress'
+
+    def action_notify(self):
+        for rec in self:
+            rec.doctor_id.user_id.notify_warning(message='Appointment is Confirmed')
+
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
         for r in self:
@@ -46,32 +65,29 @@ class Session(models.Model):
                 },
             }
 
-        @api.constrains('instructor_id', 'attendee_ids')
-        def _check_instructor_not_in_attendees(self):
-            for r in self:
-                if r.instructor_id and r.instructor_id in r.attendee_ids:
-                    raise exceptions.ValidationError("A session's instructor can't be an attendee")
+    @api.constrains('instructor_id', 'attendee_ids')
+    def _check_instructor_not_in_attendees(self):
+        for r in self:
+            if r.instructor_id and r.instructor_id in r.attendee_ids:
+                raise exceptions.ValidationError("A session's instructor can't be an attendee")
 
-        @api.depends('start_date', 'duration')
-        def _get_end_date(self):
-            for r in self:
-                if not (r.start_date and r.duration):
-                    r.end_date = r.start_date
-                    continue
+    @api.depends('start_date', 'duration')
+    def _get_end_date(self):
+        for r in self:
+            if not (r.start_date and r.duration):
+                r.end_date = r.start_date
+                continue
 
-                # Add duration to start_date, but: Monday + 5 days = Saturday, so subtract one second to get on Friday
+            # Add duration to start_date, but: Monday + 5 days = Saturday, so
+            # subtract one second to get on Friday instead
+            duration = timedelta(days=r.duration, seconds=-1)
+            r.end_date = r.start_date + duration
 
-                start = fields.Datetime.from_string(r.start_date)
-                duration = timedelta(days=r.duration, seconds=-1)
-                r.end_date = start + duration
+    def _set_end_date(self):
+        for r in self:
+            if not (r.start_date and r.end_date):
+                continue
 
-        def _set_end_date(self):
-            for r in self:
-                if not (r.start_date and r.end_date):
-                    continue
-
-                # Compute the difference between dates, but: Friday - Monday = 4 days, so add one day to get 5 days instead
-
-                start_date = fields.Datetime.from_string(r.start_date)
-                end_date = fields.Datetime.from_string(r.end_date)
-                r.duration = (end_date - start_date).days + 1
+            # Compute the difference between dates, but: Friday - Monday = 4 days,
+            # so add one day to get 5 days instead
+            r.duration = (r.end_date - r.start_date).days + 1

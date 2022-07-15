@@ -11,6 +11,11 @@ class AttendeeInfo(models.Model):
 
     # Add a new column to the res.partner model, by default partners are not
     # instructors
-    instructor = fields.Boolean("Instructor", default=False)
+    instructor = fields.Boolean(string="Instructor", default=False)
 
+    def name_get(self):
+        res = []
+        for record in self:
+            res.append((record.id, "{} {}".format(record.id, record.name)))
+        return res
 
