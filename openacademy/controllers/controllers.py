@@ -2,7 +2,9 @@
 from odoo import http
 import logging
 import json
+
 _logger = logging.getLogger(__name__)
+
 
 class CourseController(http.Controller):
     @http.route('/api', auth='public', website=False, csrf=False, type='json', methods=['get', 'POST'])
@@ -26,4 +28,3 @@ class CourseController(http.Controller):
             'description': kw.get('description')
         }).id
         return json.dumps(insert)
-
