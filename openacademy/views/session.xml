@@ -24,17 +24,19 @@
             <field name="arch" type="xml">
                 <form string="Session Form">
                     <header>
-                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" states="in_progress"/>
-                    <button name="action_notify" type="object" string="Notify" class="oe_highlight" states="in_progress"/>
-                    <button name="action_done" type="object" string="Done" class="oe_highlight"
-                            attrs="{'invisible': [('state','!=', 'confirm')]}"/>
-                    <field name="state" widget="statusbar" statusbar_visible="in_progress,confirm,done"/>
+                        <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"
+                                states="in_progress"/>
+                        <button name="action_notify" type="object" string="Notify" class="oe_highlight"
+                                states="in_progress"/>
+                        <button name="action_done" type="object" string="Done" class="oe_highlight"
+                                attrs="{'invisible': [('state','!=', 'confirm')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="in_progress,confirm,done"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
-                             <h1>
-                                 <field name="name"/>
-                             </h1>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
                         </div>
                         <group>
                             <group string="General">

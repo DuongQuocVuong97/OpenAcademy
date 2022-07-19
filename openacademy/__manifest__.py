@@ -3,7 +3,7 @@
     'name': "openacademy",
 
     'summary': """ Manage Trainings """
-       """ Training Module  """,
+               """ Training Module  """,
 
     'description': """
        Open Academy module for managing trainings:
@@ -28,6 +28,7 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+
         'views/course.xml',
         'views/session.xml',
         'views/attendee.xml',

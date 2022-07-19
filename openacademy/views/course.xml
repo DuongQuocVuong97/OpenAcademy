@@ -62,7 +62,7 @@
                                 <group>
                                     <field name="name"/>
                                     <field name="description"/>
-                                    <field name="responsible_id"/>
+                                    <field name="responsible_id" options="{'no_quick_create':True,'no_create_edit':True}"/>
                                 </group>
                             </div>
                             <div class="col-6">
@@ -77,11 +77,10 @@
         </record>
 
 
-
         <record model="ir.actions.act_window" id="course_list_action">
             <field name="name">Courses</field>
             <field name="res_model">course</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_content_smiling_face">Create the first course
                 </p>

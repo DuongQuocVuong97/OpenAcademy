@@ -1,5 +1,9 @@
+
+
 from odoo import models, fields, api, exceptions
 from datetime import timedelta
+
+from odoo.exceptions import UserError
 
 
 class Session(models.Model):
@@ -38,7 +42,13 @@ class Session(models.Model):
 
     def action_notify(self):
         for rec in self:
-            rec.doctor_id.user_id.notify_warning(message='Appointment is Confirmed')
+            rec.user_id.notify_warning(message='Appointment is Confirmed')
+
+    def write(self, vals):
+        if any(state == 'confirm' for state in set(self.mapped('state'))):
+            raise UserError("No edit in confirm state")
+        else:
+            return super().write(vals)
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
